@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ingeniero de Sistemas · Tarjeta digital</title>
+  <meta name="description" content="Tarjeta de presentación digital de un Ingeniero de Sistemas: contacto, servicios, portafolio y contratación.">
+  <meta name="theme-color" content="#080E1C">
+
+  <!-- Open Graph: edita estos valores al publicar (los buscadores y redes no ejecutan JavaScript) -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Ingeniero de Sistemas · Tarjeta digital">
+  <meta property="og:description" content="Desarrollo de software, web, cloud, redes y seguridad informática.">
+  <meta property="og:image" content="assets/img/cover-circuit.svg">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Aplica el tema guardado antes de pintar, para evitar parpadeos -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('card.theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { /* almacenamiento no disponible: se usa el tema oscuro */ }
+    })();
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- Fondo: partículas opcionales + iluminación ambiental -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <!-- ============ BARRA SUPERIOR ============ -->
+  <header class="topbar">
+    <a class="brand" href="#perfil" aria-label="Ir al perfil">
+      <span class="brand-mark" id="brandInitials">IS</span>
+      <span class="brand-text">tarjeta<span class="brand-dot">.</span>digital</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn" type="button" data-action="particles" id="particlesToggle"
+              aria-pressed="true" aria-label="Activar o desactivar partículas de fondo" title="Partículas de fondo">
+        <i data-lucide="sparkles"></i>
+      </button>
+      <button class="icon-btn" type="button" data-action="theme" id="themeToggle"
+              aria-label="Cambiar entre modo oscuro y claro" title="Modo oscuro / claro">
+        <span class="theme-icon theme-icon--moon"><i data-lucide="moon"></i></span>
+        <span class="theme-icon theme-icon--sun"><i data-lucide="sun"></i></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ============ COLUMNA DE PERFIL ============ -->
+    <aside class="profile-col">
+      <article class="card profile-card" id="perfil">
+
+        <!-- Portada + foto -->
+        <div class="cover">
+          <img id="coverImg" src="" alt="" decoding="async">
+          <span class="cover-scan" aria-hidden="true"></span>
+          <span class="cover-fade" aria-hidden="true"></span>
+        </div>
+
+        <div class="profile-body">
+          <div class="avatar-wrap enter" style="--d:.05s">
+            <span class="avatar-ring" aria-hidden="true"></span>
+            <img id="avatarImg" class="avatar" src="" alt="" width="132" height="132" decoding="async">
+          </div>
+
+          <p class="status enter" id="status" style="--d:.12s">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="statusText"></span>
+          </p>
+
+          <h1 class="name enter" id="name" style="--d:.18s"></h1>
+          <p class="role enter" id="role" style="--d:.24s"></p>
+          <p class="specialty enter" id="specialty" style="--d:.30s"></p>
+          <p class="bio enter" id="bio" style="--d:.36s"></p>
+          <p class="location-line enter" id="locationLine" style="--d:.40s" hidden>
+            <i data-lucide="map-pin"></i><span id="locationText"></span>
+          </p>
+        </div>
+
+        <!-- Botones principales de contacto -->
+        <nav class="contact enter" aria-label="Contacto directo" style="--d:.46s">
+          <div class="contact-primary">
+            <a class="btn btn-wa glow-card" data-link="whatsapp" href="#" target="_blank" rel="noopener">
+              <span class="btn-icon" data-wa-icon></span>
+              <span class="btn-label">WhatsApp</span>
+            </a>
+            <button class="btn btn-accent glow-card" type="button" data-action="vcard">
+              <span class="btn-icon"><i data-lucide="user-plus"></i></span>
+              <span class="btn-label">Guardar contacto</span>
+            </button>
+          </div>
+          <div class="contact-grid">
+            <a class="btn btn-ghost glow-card" data-link="email" href="#">
+              <span class="btn-icon"><i data-lucide="mail"></i></span>
+              <span class="btn-label">Correo</span>
+            </a>
+            <a class="btn btn-ghost glow-card" data-link="call" href="#">
+              <span class="btn-icon"><i data-lucide="phone"></i></span>
+              <span class="btn-label">Llamar</span>
+            </a>
+            <a class="btn btn-ghost glow-card" data-link="linkedin" href="#" target="_blank" rel="noopener">
+              <span class="btn-icon"><i data-lucide="linkedin"></i></span>
+              <span class="btn-label">LinkedIn</span>
+            </a>
+            <a class="btn btn-ghost glow-card" data-link="github" href="#" target="_blank" rel="noopener">
+              <span class="btn-icon"><i data-lucide="github"></i></span>
+              <span class="btn-label">GitHub</span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- Herramientas rápidas -->
+        <div class="tools enter" style="--d:.52s">
+          <p class="tools-title">Compartir</p>
+          <div class="tools-row">
+            <button class="tool" type="button" data-action="share">
+              <i data-lucide="share-2"></i><span>Compartir</span>
+            </button>
+            <button class="tool" type="button" data-action="copy">
+              <i data-lucide="link"></i><span>Copiar enlace</span>
+            </button>
+            <button class="tool" type="button" data-action="qr">
+              <i data-lucide="qr-code"></i><span>Código QR</span>
+            </button>
+            <a class="tool" data-link="maps" href="#" target="_blank" rel="noopener">
+              <i data-lucide="map-pin"></i><span>Ubicación</span>
+            </a>
+          </div>
+
+          <p class="tools-title">Descargas</p>
+          <div class="tools-row tools-row--3">
+            <button class="tool" type="button" data-action="vcard">
+              <i data-lucide="contact"></i><span>Contacto VCF</span>
+            </button>
+            <button class="tool" type="button" data-action="cv">
+              <i data-lucide="file-text"></i><span>Currículum</span>
+            </button>
+            <button class="tool" type="button" data-action="catalog">
+              <i data-lucide="book-open"></i><span>Catálogo</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </aside>
+
+    <!-- ============ CONTENIDO ============ -->
+    <main id="main" class="content-col">
+
+      <!-- EXPLORA MI PERFIL -->
+      <section class="section reveal" id="explora" aria-labelledby="explora-title">
+        <header class="section-head">
+          <span class="eyebrow">01 · Perfil</span>
+          <h2 id="explora-title">Explora mi perfil</h2>
+        </header>
+        <div class="explore-grid" id="exploreGrid"></div>
+      </section>
+
+      <!-- SERVICIOS -->
+      <section class="section reveal" id="servicios" aria-labelledby="servicios-title">
+        <header class="section-head">
+          <span class="eyebrow">02 · Servicios</span>
+          <h2 id="servicios-title">Servicios profesionales</h2>
+          <p class="section-sub">Soluciones tecnológicas a la medida de tu empresa o proyecto.</p>
+        </header>
+        <div class="services-grid" id="servicesGrid"></div>
+        <button class="btn btn-ghost btn-more" type="button" id="servicesToggle" aria-expanded="false" aria-controls="servicesGrid">
+          <span class="btn-label">Ver todos los servicios</span>
+          <span class="btn-icon"><i data-lucide="chevron-down"></i></span>
+        </button>
+      </section>
+
+      <!-- CONTRATACIÓN -->
+      <section class="section reveal" id="contratar" aria-labelledby="contratar-title">
+        <div class="hire card glow-card">
+          <span class="hire-grid-bg" aria-hidden="true"></span>
+          <span class="eyebrow">03 · Contratación</span>
+          <h2 id="contratar-title">¿Tienes un proyecto en mente?</h2>
+          <p class="section-sub">Cuéntame tu idea y te respondo con una propuesta clara: alcance, tiempos y costo.</p>
+          <div class="hire-actions">
+            <button class="btn btn-accent" type="button" data-action="quote">
+              <span class="btn-icon"><i data-lucide="calculator"></i></span>
+              <span class="btn-label">Solicitar cotización</span>
+            </button>
+            <button class="btn btn-ghost" type="button" data-action="hire">
+              <span class="btn-icon"><i data-lucide="handshake"></i></span>
+              <span class="btn-label">Contratar un servicio</span>
+            </button>
+            <button class="btn btn-ghost" type="button" data-action="meeting">
+              <span class="btn-icon"><i data-lucide="calendar-clock"></i></span>
+              <span class="btn-label">Agendar una reunión</span>
+            </button>
+            <a class="btn btn-wa" data-link="whatsapp" href="#" target="_blank" rel="noopener">
+              <span class="btn-icon" data-wa-icon></span>
+              <span class="btn-label">Contactar por WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>© <span id="year"></span> <span id="footerName"></span> · <span id="footerRole"></span></p>
+        <p class="footer-mono">&lt;/&gt; Hecho con HTML, CSS y JavaScript</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ============ BOTONES FLOTANTES ============ -->
+  <a class="fab fab-wa" data-link="whatsapp" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <span data-wa-icon></span>
+  </a>
+  <button class="fab fab-top" type="button" data-action="top" aria-label="Volver arriba">
+    <i data-lucide="arrow-up"></i>
+  </button>
+
+  <!-- ============ MODAL: FORMULARIO ============ -->
+  <dialog class="modal" id="formModal" aria-labelledby="formTitle">
+    <form class="modal-box" id="requestForm" novalidate>
+      <header class="modal-head">
+        <div>
+          <span class="eyebrow" id="formEyebrow">Cotización</span>
+          <h2 id="formTitle">Solicitar cotización</h2>
+        </div>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i data-lucide="x"></i></button>
+      </header>
+
+      <div class="modal-body">
+        <p class="form-intro" id="formIntro"></p>
+
+        <div class="field">
+          <label for="f-name">Nombre del cliente</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required minlength="3" maxlength="80" placeholder="Tu nombre o empresa">
+          <small class="field-error" id="e-name"></small>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-email">Correo electrónico</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="120" placeholder="nombre@empresa.com">
+            <small class="field-error" id="e-email"></small>
+          </div>
+          <div class="field">
+            <label for="f-phone">Número de WhatsApp</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" placeholder="+código país y número">
+            <small class="field-error" id="e-phone"></small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-service">Tipo de servicio</label>
+          <select id="f-service" name="service" required></select>
+          <small class="field-error" id="e-service"></small>
+        </div>
+
+        <!-- Solo en modo "Agendar reunión" -->
+        <div class="field-row" data-mode-only="meeting">
+          <div class="field">
+            <label for="f-date">Fecha preferida</label>
+            <input id="f-date" name="date" type="date">
+            <small class="field-error" id="e-date"></small>
+          </div>
+          <div class="field">
+            <label for="f-time">Hora preferida</label>
+            <input id="f-time" name="time" type="time">
+            <small class="field-error" id="e-time"></small>
+          </div>
+        </div>
+        <div class="field" data-mode-only="meeting">
+          <label for="f-modality">Modalidad</label>
+          <select id="f-modality" name="modality">
+            <option value="Videollamada">Videollamada</option>
+            <option value="Llamada telefónica">Llamada telefónica</option>
+            <option value="Presencial">Presencial</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="f-desc" id="descLabel">Descripción del proyecto</label>
+          <textarea id="f-desc" name="description" rows="4" required minlength="20" maxlength="1500"
+                    placeholder="¿Qué necesitas? Objetivos, funcionalidades, plazos…"></textarea>
+          <small class="field-hint"><span id="descCount">0</span>/1500</small>
+          <small class="field-error" id="e-desc"></small>
+        </div>
+
+        <div class="field" data-mode-hide="meeting">
+          <label for="f-budget">Presupuesto aproximado</label>
+          <select id="f-budget" name="budget"></select>
+          <small class="field-error" id="e-budget"></small>
+        </div>
+
+        <p class="form-note">
+          <i data-lucide="shield-check"></i>
+          Tus datos solo se usan para responder tu solicitud. El mensaje se envía desde tu WhatsApp o tu correo.
+        </p>
+      </div>
+
+      <footer class="modal-foot">
+        <button class="btn btn-wa" type="submit" value="whatsapp">
+          <span class="btn-icon" data-wa-icon></span>
+          <span class="btn-label">Enviar por WhatsApp</span>
+        </button>
+        <button class="btn btn-ghost" type="submit" value="email">
+          <span class="btn-icon"><i data-lucide="send"></i></span>
+          <span class="btn-label">Enviar por correo</span>
+        </button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- ============ MODAL: CÓDIGO QR ============ -->
+  <dialog class="modal modal--sm" id="qrModal" aria-labelledby="qrTitle">
+    <div class="modal-box">
+      <header class="modal-head">
+        <div>
+          <span class="eyebrow">Compartir</span>
+          <h2 id="qrTitle">Escanea mi tarjeta</h2>
+        </div>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i data-lucide="x"></i></button>
+      </header>
+      <div class="modal-body qr-body">
+        <div class="qr-frame"><div id="qrBox" class="qr-box" role="img" aria-label="Código QR de la tarjeta digital"></div></div>
+        <p class="qr-url" id="qrUrl"></p>
+        <p class="qr-warning" id="qrWarning" hidden></p>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn btn-accent" type="button" data-action="qr-download">
+          <span class="btn-icon"><i data-lucide="download"></i></span>
+          <span class="btn-label">Descargar QR</span>
+        </button>
+        <button class="btn btn-ghost" type="button" data-action="copy">
+          <span class="btn-icon"><i data-lucide="copy"></i></span>
+          <span class="btn-label">Copiar enlace</span>
+        </button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- ============ MODAL: INFORMACIÓN (experiencia, tecnologías, certificaciones) ============ -->
+  <dialog class="modal" id="infoModal" aria-labelledby="infoTitle">
+    <div class="modal-box">
+      <header class="modal-head">
+        <div>
+          <span class="eyebrow" id="infoEyebrow">Perfil</span>
+          <h2 id="infoTitle"></h2>
+        </div>
+        <button class="icon-btn" type="button" data-close aria-label="Cerrar"><i data-lucide="x"></i></button>
+      </header>
+      <div class="modal-body" id="infoBody"></div>
+    </div>
+  </dialog>
+
+  <!-- Avisos -->
+  <div class="toast-region" id="toastRegion" role="status" aria-live="polite"></div>
+
+  <!-- Librerías: iconos Lucide y generador de QR (versiones fijas) -->
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

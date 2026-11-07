@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice">
+  <!-- Portada tecnológica: placa de circuito. Reemplázala por tu propia imagen si lo deseas. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1E3F"/>
+      <stop offset=".55" stop-color="#081328"/>
+      <stop offset="1" stop-color="#0A2546"/>
+    </linearGradient>
+    <radialGradient id="halo" cx=".72" cy=".42" r=".5">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="trace" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2F8CFF" stop-opacity=".15"/>
+      <stop offset=".6" stop-color="#22D3EE" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#2F8CFF" stop-opacity=".25"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#2F8CFF" stroke-opacity=".08" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="400" fill="url(#bg)"/>
+  <rect width="1200" height="400" fill="url(#grid)"/>
+  <rect width="1200" height="400" fill="url(#halo)"/>
+
+  <!-- Pistas -->
+  <g fill="none" stroke="url(#trace)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M0 80H220l40 40h180l30-30h160"/>
+    <path d="M0 150H140l30 30h210l40-40h140"/>
+    <path d="M0 260H180l50-50h170l30 30h140"/>
+    <path d="M0 330H260l40-40h220"/>
+    <path d="M1200 60H1010l-40 40H860"/>
+    <path d="M1200 140H1060l-30 30H900"/>
+    <path d="M1200 250H1040l-40-40H900"/>
+    <path d="M1200 340H980l-50-50H880"/>
+    <path d="M760 40v60"/>
+    <path d="M820 40v60"/>
+    <path d="M760 300v60"/>
+    <path d="M820 300v60"/>
+  </g>
+
+  <!-- Chip central -->
+  <g filter="url(#glow)">
+    <rect x="690" y="100" width="200" height="200" rx="18" fill="#0E1F3A" stroke="#22D3EE" stroke-opacity=".8" stroke-width="2"/>
+    <rect x="725" y="135" width="130" height="130" rx="10" fill="none" stroke="#2F8CFF" stroke-opacity=".6" stroke-width="1.5"/>
+    <g stroke="#22D3EE" stroke-opacity=".7" stroke-width="3" stroke-linecap="round">
+      <path d="M710 130h-20M710 170h-20M710 210h-20M710 250h-20M710 290h-20"/>
+      <path d="M890 130h-20M890 170h-20M890 210h-20M890 250h-20"/>
+    </g>
+    <text x="790" y="208" text-anchor="middle" font-family="Consolas, monospace" font-size="26" fill="#22D3EE" fill-opacity=".9">&lt;/&gt;</text>
+  </g>
+
+  <!-- Nodos -->
+  <g fill="#22D3EE" filter="url(#glow)">
+    <circle cx="630" cy="90" r="5"/><circle cx="580" cy="140" r="5"/><circle cx="540" cy="240" r="5"/>
+    <circle cx="520" cy="290" r="5"/><circle cx="860" cy="100" r="4"/><circle cx="900" cy="170" r="4"/>
+    <circle cx="900" cy="210" r="4"/><circle cx="880" cy="290" r="4"/><circle cx="220" cy="80" r="3"/>
+    <circle cx="140" cy="150" r="3"/><circle cx="180" cy="260" r="3"/><circle cx="1010" cy="60" r="3"/>
+    <circle cx="1060" cy="140" r="3"/><circle cx="1040" cy="250" r="3"/>
+  </g>
+  <g fill="#2F8CFF" fill-opacity=".5">
+    <circle cx="80" cy="40" r="2"/><circle cx="360" cy="40" r="2"/><circle cx="420" cy="360" r="2"/>
+    <circle cx="1120" cy="200" r="2"/><circle cx="1100" cy="380" r="2"/><circle cx="320" cy="210" r="2"/>
+  </g>
+</svg>
